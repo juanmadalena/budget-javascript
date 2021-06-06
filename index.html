@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+</head>
+<body>
+    <div class="app-title">budget<strong>App</strong></div>
+    <div class="budget-container">
+        <div class="budget-header">
+            <div class="balance">
+                <div class="value"><small class="sign">$</small> 0</div>
+                <div class="title">Balance</div>
+            </div>
+            <div class="chart"></div>
+            <div class="account">
+                <div class="income">
+                    <div class="income-total"><small>$</small>0</div>
+                    <div class="title">Income</div>
+                </div>
+                <div class="outcome">
+                    <div class="outcome-total"><small>$</small>0</div>
+                <div class="title">Outcome</div>
+                </div>
+            </div>
+        </div>
+        <div class="budget-dashboard">
+            <div class="dash-title">Dashboard</div>
+            <div class="toggle">
+                <div class="tab1">Expenses</div>
+                <div class="tab2">Income</div>
+                <div class="tab3 active">All</div>
+            </div>
+            <div class="hide" id="expense">
+                <div class="container-list">
+                <ul class="list"></ul>
+                <div class="input">
+                <div id="popup-outcome-button" class="popup-button" >+</div>
+                </div>
+            </div>
+                    <div id="popup-outcome" class="popup">
+                        <div class="title-popup">
+                        Add an expense
+                        <div class="close-expense close"><i class="far fa-times-circle"></i></div>
+                        </div>
+                        <div>
+                            <form class="popup-input">
+                    <label for="expense-title-input" class="label">Title</label>
+                    <input type="text" name="title" id="expense-title-input" placeholder="">
+                    <label for="expense-amount-input" class="label">Amount</label>
+                    <input type="number" name="amount" id="expense-amount-input" placeholder="">
+                    <button class="add-expense">Add</button>
+                </form>
+                    </div>
+                    </div>
+            </div>
+            <div class="hide" id="income">
+                <div class="container-list">
+                <ul class="list"></ul>
+                <div class="input">
+                    <div id="popup-income-button" class="popup-button">+</div>
+                </div>
+            </div>
+                    <div id="popup-income" class="popup">
+                        <div class="title-popup">
+                        Add an income
+                        <div class="close-income close"><i class="far fa-times-circle"></i></div>
+                        </div>
+                        <div>
+                    <form class="popup-input">
+                    <label for="income-title-input" class="label">Title</label>       
+                    <input type="text" name="title" id="income-title-input" placeholder="">
+                    <label for="income-amount-input" class="label">Amount</label>
+                    <input type="number" name="amount" id="income-amount-input" placeholder="">
+                    <button class="add-income">Add</button>
+                </form>
+                </div>
+                    </div>
+            </div>
+            <div id="all">
+                <ul class="list"></ul>
+            </div>
+        </div>
+    </div>
+    <script src="./chart.js"></script>
+    <script src="./budget.js"></script>
+</body>
+</html>
