@@ -8,32 +8,30 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 </head>
 <body>
-    <div class="app-title">budget<strong>App</strong></div>
     <div class="budget-container">
+        <div class="header-menu"><a href="https://linkedin.com/in/juanmadalena"><p>JuanMadalena</p></a></div>
         <div class="budget-header">
             <div class="balance">
-                <div class="value"><small class="sign">$</small> 0</div>
-                <div class="title">Balance</div>
+                <div class="balance-total"><small class="sign">$</small> 0</div>
             </div>
-            <div class="chart"></div>
+            <div class="line-container"><div class="line-income"></div><div class="division"></div><div class="line-expense"></div></div>
             <div class="account">
-                <div class="income">
+                <div class="income-header">
                     <div class="income-total"><small>$</small>0</div>
                     <div class="title">Income</div>
                 </div>
-                <div class="outcome">
+                <div class="outcome-header">
                     <div class="outcome-total"><small>$</small>0</div>
-                <div class="title">Outcome</div>
-                </div>
+                <div class="title">Expenses</div>
+            </div>
             </div>
         </div>
+        <div class="toggle">
+            <div class="tab1"><i class='fas fa-arrow-up'></i></div>
+            <div class="tab2"><i class='fas fa-arrow-down'></i></div>
+            <div class="tab3 active"><i class='fas fa-arrow-down'></i><i class='fas fa-arrow-up'></i></div>
+        </div>
         <div class="budget-dashboard">
-            <div class="dash-title">Dashboard</div>
-            <div class="toggle">
-                <div class="tab1">Expenses</div>
-                <div class="tab2">Income</div>
-                <div class="tab3 active">All</div>
-            </div>
             <div class="hide" id="expense">
                 <div class="container-list">
                 <ul class="list"></ul>
@@ -85,7 +83,6 @@
             </div>
         </div>
     </div>
-    <script src="./chart.js"></script>
     <script src="./budget.js"></script>
 </body>
 </html>

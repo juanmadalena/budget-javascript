@@ -1,4 +1,4 @@
-const balanceEl = document.querySelector(".balance .value");
+const balanceEl = document.querySelector(".balance .balance-total");
 const incomeTotalEl = document.querySelector(".income-total");
 const outcomeTotalEl = document.querySelector(".outcome-total");
 const incomeEl = document.querySelector("#income");
@@ -13,6 +13,7 @@ const popupIncome = document.getElementById('popup-income');
 const popupExpense = document.getElementById('popup-outcome');
 const closeExpensePopup = document.querySelector(".close-expense")
 const closeIncomePopup = document.querySelector(".close-income")
+const popupButton = document.querySelector(".popup-button")
 
 //toggle menu
 const expenseBtn = document.querySelector(".tab1");
@@ -45,6 +46,8 @@ expenseBtn.addEventListener("click", function () {
     hide([incomeEl, allEl]);
     active(expenseBtn);
     inactive([incomeBtn, allBtn]);
+    popupButton.style.backgroundColor = "rgb(252, 87, 87)"
+
 })
 incomeBtn.addEventListener("click", function () {
     show(incomeEl);
@@ -143,6 +146,20 @@ function editEntry(entry) {
     deleteEntry(entry);
 }
 
+function updateChart(income, outcome) {
+    const chart = document.querySelector(".line-expense")
+    const chartIncome = document.querySelector(".line-income")
+
+    let total = income
+
+    let line = outcome * 100 / total;
+
+    let lineIncome = 100 - line;
+
+    chart.style.width = `${line}%`;
+    chartIncome.style.width = `${lineIncome}%`;
+}
+
 function updateUI() {
     income = calculateTotal('income', ENTRY_LIST)
     outcome = calculateTotal('expense', ENTRY_LIST)
@@ -150,11 +167,13 @@ function updateUI() {
 
     let sign = (income >= outcome) ? "$" : "-$";
 
+    if (sign === "-$") document.querySelector(".value").style.color = 'red';
+
     balance = Math.abs(balance)
 
-    balanceEl.innerHTML = `<small">${sign}</small>${balance}`;
-    outcomeTotalEl.innerHTML = `<small>$</small>${outcome}`
-    incomeTotalEl.innerHTML = `<small>$</small>${income}`
+    balanceEl.innerHTML = `<span class="sign">${sign}</span>${balance}`;
+    outcomeTotalEl.innerHTML = `$${outcome}`
+    incomeTotalEl.innerHTML = `$${income}`
 
     clearElement([expenseList, incomeList, allList])
 
@@ -174,14 +193,19 @@ function updateUI() {
 
 function showEntry(list, type, title, amount, date, id) {
 
-    const entry = `<li id="${id}" class="${type}">
-                        <div class="date"> <div class="day-container"><div class="day">${date.day}</div><div class="month">${date.month}</div></div></div>
-                        <div class="entry-details">
-                        <div class="entry-title">${title}</div>
-                        <div class="entry-amount">${type == 'expense' ? '-' : ''}$${amount}</div>
-                        </div>
-                        <div class="entry-button">
-                        <i class="fas fa-backspace" id="DELETE"></i>
+    const entry = `<li id="${id}" class="entry">
+                        <div class="entry-container">
+                            <div class="entry-type ${type}">
+                                ${type === "expense" ? "<i class='fas fa-arrow-up'></i>" : "<i class='fas fa-arrow-down'></i>"}
+                            </div>
+                            <div class="entry-details">
+                                <div class="date"><p class="date-details">${date.day} ${date.month}</p></div>
+                                <div class="entry-title">${title}</div>
+                            </div>
+                            <div class="entry-amount">${type === 'expense' ? '-' : ''}<small>$</small>${amount}</div>
+                            <div class="entry-button">
+                                <i class="far fa-times-circle" id="DELETE"></i>
+                            </div>
                         </div>
                     </li>`;
 
@@ -214,6 +238,7 @@ function calculateBalance(income, outcome) {
 function clearInput(inputs) {
     inputs.forEach(input => {
         input.value = ""
+        input.style.border = "none"
     })
 }
 
@@ -224,7 +249,6 @@ function show(element) {
 function hide(elements) {
     elements.forEach(element => {
         element.classList.add("hide")
-
     })
 }
 
@@ -240,8 +264,14 @@ function inactive(elements) {
 
 
 addExpense.addEventListener("click", function () {
-    if (!expenseTitle.value || !expenseAmount.value) return console.log('nop');
-
+    if (!expenseTitle.value) {
+        expenseTitle.style.border = ' red solid 1px';
+        return event.preventDefault();
+    }
+    if (expenseAmount.value < 0 || !expenseAmount.value) {
+        expenseAmount.style.border = ' red solid 1px';
+        return event.preventDefault();
+    }
     const dateTime = new Date()
 
     const day = dateTime.getDate();
@@ -267,9 +297,20 @@ addExpense.addEventListener("click", function () {
 })
 
 addIncome.addEventListener("click", function () {
-    if (!incomeTitle.value || !incomeAmount.value) return console.log('nop');
-    ;
-
+    if (!incomeTitle.value) {
+        incomeTitle.style.border = 'red 1px solid';
+        return event.preventDefault();
+    }
+    else {
+        incomeTitle.style.border = 'none';
+    }
+    if (incomeAmount.value < 0 || !incomeAmount) {
+        incomeAmount.style.border = 'solid 1px red';
+        return event.preventDefault();
+    }
+    else {
+        incomeAmount.style.border = 'none';
+    }
     const dateTime = new Date()
 
     const day = dateTime.getDate();
@@ -292,4 +333,5 @@ addIncome.addEventListener("click", function () {
     ENTRY_LIST.push(income)
     clearInput([incomeAmount, incomeTitle])
     updateUI()
+
 })
